@@ -18,13 +18,7 @@ function PostItem({ post }) {
     <li className={classes.post}>
       <Link href={`/posts/${slug}`}>
         <div className={classes.image}>
-          <Image
-            src={imagePath}
-            alt={title}
-            width={300}
-            height={200}
-            layout="responsive"
-          />
+          <Image src={imagePath} alt={title} width={400} height={200} />
         </div>
 
         <div className={classes.content}>
