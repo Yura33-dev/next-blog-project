@@ -1,8 +1,9 @@
-import { useContext, useEffect } from "react";
+import ReactDOM from 'react-dom';
+import { useContext, useEffect } from 'react';
 
-import classes from "./notification.module.css";
+import classes from './notification.module.css';
 
-import NotificationContext from "@/store/context/notification";
+import NotificationContext from '@/store/context/notification';
 
 function Notification(props) {
   const { title, message, status } = props;
@@ -10,7 +11,7 @@ function Notification(props) {
   const { hideNotification } = useContext(NotificationContext);
 
   useEffect(() => {
-    if (status === "success" || status === "error") {
+    if (status === 'success' || status === 'error') {
       const timer = setTimeout(() => {
         hideNotification();
       }, 3500);
@@ -19,23 +20,24 @@ function Notification(props) {
     }
   }, [status, hideNotification]);
 
-  let statusClasses = "";
+  let statusClasses = '';
 
-  if (status === "success") {
+  if (status === 'success') {
     statusClasses = classes.success;
   }
 
-  if (status === "error") {
+  if (status === 'error') {
     statusClasses = classes.error;
   }
 
   const cssClasses = `${classes.notification} ${statusClasses}`;
 
-  return (
+  return ReactDOM.createPortal(
     <div className={cssClasses} onClick={hideNotification}>
       <h2>{title}</h2>
       <p>{message}</p>
-    </div>
+    </div>,
+    document.getElementById('notification')
   );
 }
 

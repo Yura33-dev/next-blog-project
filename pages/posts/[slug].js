@@ -1,9 +1,18 @@
-import PostContent from "@/components/posts/post-detail/post-content";
+import PostContent from '@/components/posts/post-detail/post-content';
 
-import { getPostData, getPostsFiles } from "@/helpers/post-utils";
+import { getPostData, getPostsFiles } from '@/helpers/post-utils';
+import Head from 'next/head';
 
 function PostDetailPage({ post }) {
-  return <PostContent post={post} />;
+  return (
+    <>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.summary} />
+      </Head>
+      <PostContent post={post} />
+    </>
+  );
 }
 
 export function getStaticProps(context) {
@@ -22,10 +31,10 @@ export function getStaticProps(context) {
 export function getStaticPaths() {
   const postFilenames = getPostsFiles();
 
-  const slugs = postFilenames.map((fileName) => fileName.replace(/\.md$/, ""));
+  const slugs = postFilenames.map(fileName => fileName.replace(/\.md$/, ''));
 
   return {
-    paths: slugs.map((slug) => ({ params: { slug } })),
+    paths: slugs.map(slug => ({ params: { slug } })),
     fallback: false,
   };
 }
